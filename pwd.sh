@@ -135,16 +135,16 @@ create_username () {
   read -p "
   Username: " username
   read -p "
-  Generate password? (y/n, default: y) " rand_pass
+  Generate password? (y/n, default: n) " rand_pass
 
-  if [[ "${rand_pass}" =~ ^([nN][oO]|[nN])$ ]]; then
-    get_pass "
-  Enter password for \"${username}\": " ; echo
-    userpass=$password
-  else
+  if [[ "${rand_pass}" =~ ^([yY])$ ]]; then
     userpass=$(gen_pass)
     echo "
   Password: ${userpass}"
+  else
+    get_pass "
+  Enter password for \"${username}\": " ; echo
+    userpass=$password
   fi
 }
 
