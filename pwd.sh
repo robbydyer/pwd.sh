@@ -141,7 +141,7 @@ write_pass () {
   # If successful, update to new safe file.
   ( if [[ -f ${safe} ]] ; then
       decrypt ${password} ${safe} | \
-      grep -v -e " ${username}$" || return
+      grep -v -e "^${username}" || return
     fi ; \
     echo "${new_entry}") | \
     grep -v -e "^[[:space:]]*$" | \
@@ -171,6 +171,7 @@ create_username () {
     get_pass "
   Enter password for \"${username}\": " ; echo
     userpass=$password
+    unset password
   else
     userpass=$(gen_pass "$@")
     echo "
